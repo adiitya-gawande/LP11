@@ -1,0 +1,74 @@
+Prac 2 
+1] sudo apt update
+sudo apt install mongodb-mongosh mongodb-org -y
+sudo systemctl start mongod
+sudo systemctl enable mongod
+mongosh
+2] use collegeDB
+3] db
+4] db.createCollection("employees")
+5] db.employees.insertMany([
+  {name:"Aditya", dept:"IT", salary:50000, age:21},
+  {name:"Rahul", dept:"IT", salary:60000, age:22},
+  {name:"Priya", dept:"HR", salary:45000, age:23},
+  {name:"Sneha", dept:"HR", salary:47000, age:24},
+  {name:"Amit", dept:"Finance", salary:70000, age:25}
+])
+6] db.employees.find().pretty()
+7] db.employees.aggregate([
+  {
+    $group: {
+      _id: "$dept",
+      totalSalary: {$sum: "$salary"}
+    }
+  }
+])
+8] db.employees.aggregate([
+  {
+    $group: {
+      _id: "$dept",
+      avgSalary: {$avg: "$salary"}
+    }
+  }
+])
+9] db.employees.aggregate([
+  {
+    $group: {
+      _id: "$dept",
+      maxSalary: {$max: "$salary"}
+    }
+  }
+])
+10] db.employees.aggregate([
+  {
+    $group: {
+      _id: "$dept",
+      minSalary: {$min: "$salary"}
+    }
+  }
+])
+11] db.employees.aggregate([
+  {$match: {dept:"IT"}},
+  {
+    $group: {
+      _id:"$dept",
+      totalSalary: {$sum:"$salary"}
+    }
+  }
+])
+12] db.employees.createIndex({name:1})
+13] db.employees.createIndex({dept:1, salary:-1})
+14] db.employees.getIndexes()
+15] db.employees.dropIndex("name_1")
+16] var mapFunction = function() {
+  emit(this.dept, this.salary);
+};
+17] var reduceFunction = function(key, values) {
+  return Array.sum(values);
+};
+18] db.employees.mapReduce(
+  mapFunction,
+  reduceFunction,
+  {out:"salaryTotals"}
+)
+19] db.salaryTotals.find()
