@@ -1,0 +1,62 @@
+prac 1
+1] sudo apt update
+sudo apt install mongodb-mongosh mongodb-org -y
+sudo systemctl start mongod
+sudo systemctl enable mongod
+mongosh
+2] use collegeDB
+3] db
+4] db.createCollection("students")
+5] db.students.insertOne({
+    name: "Aditya",
+    roll_no: 101,
+    branch: "IT",
+    age: 21
+})
+6] db.students.insertMany([
+    {
+        name: "Rahul",
+        roll_no: 102,
+        branch: "Computer",
+        age: 22
+    },
+    {
+        name: "Priya",
+        roll_no: 103,
+        branch: "ENTC",
+        age: 21
+    },
+    {
+        name: "Sneha",
+        roll_no: 104,
+        branch: "IT",
+        age: 20
+    }
+])
+7] db.students.find()
+8] db.students.find({age:{$gt:20}})
+9] db.students.findOne({name:"Aditya"})
+10] db.students.updateOne(
+    {name:"Aditya"},
+    {$set:{age:22}}
+)
+11] db.students.findOne({name:"Aditya"})
+12] db.students.updateMany(
+    {branch:"IT"},
+    {$set:{branch:"Information Technology"}}
+)
+13] db.students.find()
+14] db.students.deleteOne({name:"Rahul"})
+15] db.students.deleteMany({age:{$lt:21}})
+16] db.students.find({
+    $or:[
+        {branch:"ENTC"},
+        {age:22}
+    ]
+})
+17] db.students.find({
+    age:{$not:{$gt:21}}
+})
+18] db.students.countDocuments()
+19] show dbs
+20] show collections
