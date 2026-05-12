@@ -19,8 +19,7 @@ plt.xlabel("Year")
 plt.ylabel("Annual Temperature")
 plt.title("Temperature vs Year")
 plt.show()
-7] x = x.values
-x = x.reshape(-1, 1)
+7] x = x.reshape(-1, 1)
 8] x_train, x_test, y_train, y_test = train_test_split(
     x, y, test_size=0.25, random_state=42
 )
