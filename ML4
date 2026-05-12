@@ -1,0 +1,26 @@
+Prac 4
+1] !pip install mlxtend --break-system-packages
+2] import csv
+from mlxtend.preprocessing import TransactionEncoder
+from mlxtend.frequent_patterns import apriori, association_rules
+import pandas as pd
+import numpy as np
+3] data = []
+with open("/mnt/c/Users/ADITYA/Desktop/Market_Basket_Optimisation.csv") as file:
+    reader = csv.reader(file, delimiter=',')
+    for row in reader:
+        data += [row]
+4] data[:10]
+5] len(data)
+6] te = TransactionEncoder()
+x = te.fit_transform(data)
+7] x
+8] te.columns_
+9] df = pd.DataFrame(x, columns=te.columns_)
+10] df
+11] freq_itemset = apriori(df, min_support=0.01, use_colnames=True)
+12] freq_itemset
+13] rules = association_rules(freq_itemset, metric="confidence", min_threshold=0.1)
+14] rules
+15] rules = rules[['antecedents', 'consequents', 'support', 'confidence']]
+rules
