@@ -1,0 +1,45 @@
+prac 2
+1] import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import (
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    confusion_matrix,
+    classification_report,
+    ConfusionMatrixDisplay
+)
+2] data = pd.read_csv("/mnt/c/Users/ADITYA/Desktop/Admission_Predict.csv")
+3] data.head()
+4] data.isnull().sum()
+5] data.columns
+6] data['Chance of Admit '] = data['Chance of Admit '].apply(
+    lambda x: 1 if x >= 0.8 else 0
+)
+7] data.head()
+8] X = data[['GRE Score','TOEFL Score','University Rating','SOP','LOR ','CGPA','Research']]
+y = data['Chance of Admit ']
+9] X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.25,
+    random_state=3
+)
+10] print(X_train.shape)
+print(X_test.shape)
+11] model = DecisionTreeClassifier(random_state=3)
+12] model.fit(X_train, y_train)
+13] y_pred_dt = model.predict(X_test)
+14] ConfusionMatrixDisplay.from_predictions(y_test, y_pred_dt)
+plt.title("Decision Tree")
+plt.show()
+15] print(f"Accuracy is {accuracy_score(y_test, y_pred_dt)}")
+16] print(classification_report(y_test, y_pred_dt))
+17] print("Accuracy:", accuracy_score(y_test, y_pred_dt))
+print("Precision:", precision_score(y_test, y_pred_dt))
+print("Recall:", recall_score(y_test, y_pred_dt))
+print("F1 Score:", f1_score(y_test, y_pred_dt))
